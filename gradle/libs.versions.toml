@@ -1,0 +1,23 @@
+[versions]
+minecraft = "1.21.1"
+fabric-loom = "1.13-SNAPSHOT"
+fabric-loader = "0.18.4"
+fabric-kotlin = "1.13.9+kotlin.2.3.10"
+kotlin = "2.3.10"
+shadow = "9.4.1"
+junit = "5.13.4"
+mockito = "5.14.1"
+java = "21"
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+fabric-loom = { id = "fabric-loom", version.ref = "fabric-loom" }
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
+
+[libraries]
+minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
+fabric-loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric-loader" }
+fabric-kotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "fabric-kotlin" }
+junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+mockito = {module = "org.mockito:mockito-core", version.ref = "mockito"}

@@ -1,0 +1,3 @@
+plugins {
+	id("roland_a.mc_mods.common.gradle.deps")
+}

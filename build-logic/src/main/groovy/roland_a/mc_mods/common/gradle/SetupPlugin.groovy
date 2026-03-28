@@ -1,0 +1,88 @@
+package roland_a.mc_mods.common.gradle
+
+import org.gradle.api.Plugin
+import org.gradle.api.Project
+
+class SetupPlugin implements Plugin<Project> {
+	void apply(Project project) {
+		project.pluginManager.apply("roland_a.mc_mods.common.gradle.deps")
+		project.pluginManager.apply(project.libs.plugins.shadow.get().getPluginId())
+
+		project.ext {
+			mc_version = project.libs.versions.minecraft.get()
+			java_version = project.libs.versions.java.get()
+			fabric_kotlin_version = project.libs.versions.fabric.kotlin.get()
+
+            mc_version_requirement = "*"
+            fabric_kotlin_version_requirement  = ">=${fabric_kotlin_version}"
+
+			file_name = "${project.mod_id}-${project.mod_version}+mc${mc_version}"
+		}
+
+		//TODO replace this with declaring mc-mods-common as a dependency
+		project.sourceSets{
+			main {
+				java {
+					srcDirs += "./mc-mods-common/src/main/java"
+				}
+				resources {
+					srcDirs += "./mc-mods-common/src/main/resources"
+				}
+			}
+
+			test {
+				java {
+					srcDirs += "./mc-mods-common/src/test/java"
+				}
+				resources {
+					srcDirs += "./mc-mods-common/src/test/resources"
+				}
+			}
+		}
+
+		project.processResources {
+			includeEmptyDirs = false
+
+			eachFile {
+				name = name.replace("\${mod_id}", project.mod_id)
+				path = path.replace("\${mod_id}", project.mod_id)
+
+				if (name.endsWith(".json")) {
+					expand(project.properties)
+				}
+			}
+		}
+
+		project.loom{
+			accessWidenerPath = new File("./src/main/resources/\${mod_id}.accesswidener")
+		}
+
+		def shadowJarSuffix = "dev-shadow"
+		project.shadowJar {
+			configurations = []
+
+			archiveClassifier.set(shadowJarSuffix)
+			from(project.sourceSets.main.output)
+			minimize()
+			relocate("roland_a.mc_mods.common", "roland_a.mc_mods.${project.mod_id}.common")
+		}
+
+		project.remapJar {
+			dependsOn(
+				project.shadowJar
+			)
+
+			inputFile.set(project.shadowJar.archiveFile)
+		}
+
+		project.build {
+			dependsOn(project.remapJar)
+
+			doLast{
+				project.delete("./build/libs/${project.file_name}-${shadowJarSuffix}.jar" )
+			}
+		}
+
+		project.base.archivesName = project.file_name
+	}
+}

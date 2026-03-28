@@ -1,0 +1,17 @@
+.*/
+lib/
+
+# fabric
+build/
+logs/
+run/
+
+# vscode
+bin/
+
+# java
+hs_err_*.log
+replay_*.log
+*.hprof
+*.jfr
+
