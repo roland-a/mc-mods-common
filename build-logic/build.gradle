@@ -1,0 +1,32 @@
+plugins {
+	id("java")
+	id("groovy-gradle-plugin")
+}
+
+repositories {
+	maven { url = uri("https://maven.fabricmc.net/") }
+	mavenCentral()
+	gradlePluginPortal()
+}
+
+dependencies {
+	implementation("net.fabricmc:fabric-loom:${libs.versions.fabric.loom.get()}")
+	implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${libs.versions.kotlin.get()}")
+	implementation("org.jetbrains.kotlin.plugin.serialization:org.jetbrains.kotlin.plugin.serialization.gradle.plugin:${libs.versions.kotlin.get()}")
+	implementation("com.gradleup.shadow:shadow-gradle-plugin:${libs.versions.shadow.get()}")
+	implementation(localGroovy())
+}
+
+gradlePlugin {
+	plugins {
+		register("Common") {
+			id = "roland_a.mc_mods.common.gradle.setup"
+			implementationClass = "roland_a.mc_mods.common.gradle.SetupPlugin"
+		}
+
+		register("Deps") {
+			id = "roland_a.mc_mods.common.gradle.deps"
+			implementationClass = "roland_a.mc_mods.common.gradle.DepsPlugin"
+		}
+	}
+}
