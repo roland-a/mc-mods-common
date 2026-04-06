@@ -1,6 +1,6 @@
 package roland_a.mc_mods.common.matcher
 
-import net.minecraft.resources.ResourceLocation.parse
+import net.minecraft.resources.Identifier.parse
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import roland_a.mc_mods.common.Either.Companion.wrapAsLeft

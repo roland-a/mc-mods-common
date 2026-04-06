@@ -1,6 +1,6 @@
 package roland_a.mc_mods.common.matcher
 
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import roland_a.mc_mods.common.Either
 import roland_a.mc_mods.common.Either.Companion.map
 import roland_a.mc_mods.common.matcher.Label.Companion.contains
@@ -24,7 +24,7 @@ fun interface Group<T> {
 			return this.eval(null, label) == Result.IN_GROUP
 		}
 
-		val idGroup: Group<ResourceLocation> = { value, label->
+		val idGroup = Group<Identifier> { value, label->
 			if (value.toString().toLabel() == label){
 				Result.MATCHES
 			}

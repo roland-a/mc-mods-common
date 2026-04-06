@@ -53,30 +53,13 @@ class SetupPlugin implements Plugin<Project> {
 			accessWidenerPath = new File("./src/main/resources/\${mod_id}.accesswidener")
 		}
 
-		def shadowJarSuffix = "dev-shadow"
 		project.shadowJar {
 			configurations = []
 
-			archiveClassifier.set(shadowJarSuffix)
+			archiveClassifier.set("")
 			from(project.sourceSets.main.output)
 			minimize()
 			relocate("roland_a.mc_mods.common", "roland_a.mc_mods.${project.mod_id}.common")
-		}
-
-		project.remapJar {
-			dependsOn(
-				project.shadowJar
-			)
-
-			inputFile.set(project.shadowJar.archiveFile)
-		}
-
-		project.build {
-			dependsOn(project.remapJar)
-
-			doLast{
-				project.delete("./build/libs/${project.file_name}-${shadowJarSuffix}.jar" )
-			}
 		}
 
 		project.base.archivesName = project.file_name

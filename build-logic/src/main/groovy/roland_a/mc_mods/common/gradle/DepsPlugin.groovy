@@ -16,10 +16,9 @@ class DepsPlugin implements Plugin<Project> {
 
 		project.dependencies {
 			minecraft(project.libs.minecraft)
-			mappings(project.loom.officialMojangMappings())
 
-			modImplementation(project.libs.fabric.loader)
-			modImplementation(project.libs.fabric.kotlin)
+			implementation(project.libs.fabric.loader)
+			implementation(project.libs.fabric.kotlin)
 
 			testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 			testImplementation(project.libs.junit)

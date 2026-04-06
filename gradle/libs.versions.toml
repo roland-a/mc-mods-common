@@ -1,18 +1,18 @@
 [versions]
-minecraft = "1.21.1"
-fabric-loom = "1.13-SNAPSHOT"
+minecraft = "26.1"
+fabric-loom = "1.15-SNAPSHOT"
 fabric-loader = "0.18.4"
 fabric-kotlin = "1.13.9+kotlin.2.3.10"
 kotlin = "2.3.10"
 shadow = "9.4.1"
 junit = "5.10.1"
 mockito = "5.14.1"
-java = "21"
+java = "25"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-fabric-loom = { id = "fabric-loom", version.ref = "fabric-loom" }
+fabric-loom = { id = "net.fabricmc.fabric-loom", version.ref = "fabric-loom" }
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
 
 [libraries]
